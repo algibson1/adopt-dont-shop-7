@@ -207,5 +207,34 @@ RSpec.describe "Application Show Page" do
     end
   end
 
+  describe "case insensitive search" do
+    it "Shows the visitor any pet whose name matches their search, being case insensitive" do
+      shelter = Shelter.create!(name: 'Holy Valley', city: 'Westminster', foster_program: false, rank: 3)
+      pet_1 = Pet.create!(adoptable: true, age: 5, breed: 'Pig', name: 'Harvey', shelter_id: shelter.id)
+      pet_2 = Pet.create!(adoptable: true, age: 2, breed: 'Mastiff', name: 'Hank', shelter_id: shelter.id)
+      pet_3 = Pet.create!(adoptable: true, age: 1, breed: 'Tabby', name: 'Pip', shelter_id: shelter.id)
+      applicant_1 = Application.create!(name: 'Johnny', 
+      street_address: '1234 main st.', 
+      city: 'Westminster', 
+      state: 'CO',
+      zipcode: '80241', 
+      reason_for_adoption: "I love animals",
+      status: "In Progress"
+      )
+      
+      visit "/applications/#{applicant_1.id}"
+
+      fill_in 'Search', with: "hA"
+      click_on("Search")
+
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_2.name)
+      expect(page).to_not have_content(pet_3.name)
+
+    end
+  end
+
+
+
 
 end
