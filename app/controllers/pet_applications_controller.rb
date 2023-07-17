@@ -8,4 +8,10 @@ class PetApplicationsController < ApplicationController
             )
         redirect_to "/applications/#{applicant.id}"
     end
+
+    def update
+        pet_application = PetApplication.where(application_id: params[:id]).where(pet_id: params[:pet_id]).first
+        pet_application.update!(status: params[:status])
+        redirect_to "/admin/applications/#{params[:id]}"
+    end
 end

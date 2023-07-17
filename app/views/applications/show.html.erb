@@ -32,7 +32,7 @@
         <li>
           <p>
             <%= result.name %>
-            <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pet_applications", params: { pet_id: result.id } %>
+            <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pet_applications", _ %>
           </p>
         </li>
       <% end %>
