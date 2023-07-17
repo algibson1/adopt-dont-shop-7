@@ -23,8 +23,7 @@ RSpec.describe "Application Creation" do
     expect(page).to have_field(:city)
     expect(page).to have_field(:state)
     expect(page).to have_field(:zipcode)
-    expect(page).to have_content("Please explain why you would be a good home")
-    expect(page).to have_field(:reason_for_adoption)
+    expect(page).to_not have_field(:reason_for_adoption)
     expect(page).to have_button("Submit")
   end
 
@@ -34,7 +33,7 @@ RSpec.describe "Application Creation" do
 #   - City
 #   - State
 #   - Zip Code
-#   - Description of why I would make a good home
+######   - Description of why I would make a good home MOVED TO BE PART OF SUBMISSION STEP ###
 # And I click submit
 # Then I am taken to the new application's show page
 # And I see my Name, address information, and description of why I would make a good home
@@ -47,7 +46,6 @@ RSpec.describe "Application Creation" do
     fill_in(:city, with: "Kitty City")
     fill_in(:state, with: "WA")
     fill_in(:zipcode, with: "35467")
-    fill_in(:reason_for_adoption, with: "I work from home and will be around all day to offer companionship")
     click_button("Submit")
 
     app = Application.last
@@ -58,7 +56,6 @@ RSpec.describe "Application Creation" do
     expect(page).to have_content("Kitty City")
     expect(page).to have_content("WA")
     expect(page).to have_content("35467")
-    expect(page).to have_content("I work from home and will be around all day to offer companionship")
     expect(page).to have_content("In Progress")
   end
 
@@ -76,7 +73,6 @@ RSpec.describe "Application Creation" do
     fill_in(:city, with: "Kitty City")
     fill_in(:state, with: "WA")
     fill_in(:zipcode, with: "35467")
-    fill_in(:reason_for_adoption, with: "I work from home and will be around all day to offer companionship")
     click_button("Submit")
 
     expect(current_path).to eq("/applications/new")
@@ -90,7 +86,6 @@ RSpec.describe "Application Creation" do
     fill_in(:city, with: "Kitty City")
     fill_in(:state, with: "WA")
     fill_in(:zipcode, with: "35467")
-    fill_in(:reason_for_adoption, with: "I work from home and will be around all day to offer companionship")
     click_button("Submit")
 
     expect(current_path).to eq("/applications/new")
@@ -104,7 +99,6 @@ RSpec.describe "Application Creation" do
     fill_in(:street_address, with: "253 Doggie Lane")
     fill_in(:state, with: "WA")
     fill_in(:zipcode, with: "35467")
-    fill_in(:reason_for_adoption, with: "I work from home and will be around all day to offer companionship")
     click_button("Submit")
 
     expect(current_path).to eq("/applications/new")
@@ -118,7 +112,6 @@ RSpec.describe "Application Creation" do
     fill_in(:street_address, with: "253 Doggie Lane")
     fill_in(:city, with: "Kitty City")
     fill_in(:zipcode, with: "35467")
-    fill_in(:reason_for_adoption, with: "I work from home and will be around all day to offer companionship")
     click_button("Submit")
 
     expect(current_path).to eq("/applications/new")
@@ -133,25 +126,10 @@ RSpec.describe "Application Creation" do
     fill_in(:street_address, with: "253 Doggie Lane")
     fill_in(:city, with: "Kitty City")
     fill_in(:state, with: "WA")
-    fill_in(:reason_for_adoption, with: "I work from home and will be around all day to offer companionship")
     click_button("Submit")
 
     expect(current_path).to eq("/applications/new")
     expect(page).to have_content("Error: Zipcode can't be blank")
-  end
-
-  it "should raise error if user doesn't fill out reason for adoption" do
-    visit "/applications/new"
-
-    fill_in(:name, with: "Jennifer")
-    fill_in(:street_address, with: "253 Doggie Lane")
-    fill_in(:city, with: "Kitty City")
-    fill_in(:state, with: "WA")
-    fill_in(:zipcode, with: "35467")
-    click_button("Submit")
-
-    expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: Reason for adoption can't be blank")
   end
 
   it "may have multiple errors" do
@@ -163,7 +141,7 @@ RSpec.describe "Application Creation" do
     click_button("Submit")
 
     expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: Street address can't be blank, City can't be blank, Reason for adoption can't be blank")
+    expect(page).to have_content("Error: Street address can't be blank, City can't be blank")
   end
 
   #edge case- check that zip code is a 5-digit number
