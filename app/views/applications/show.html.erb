@@ -5,8 +5,10 @@
 <%= @application.state %> 
 <%= @application.zipcode %><br>
 
+<% if @application.status == "Pending" %>
 <h3>Reason <%= @application.name %> would be a good home</h3>
 <%= @application.reason_for_adoption %>
+<% end %>
 
 <h4>Application Status</h4>
 <%= @application.status %>
@@ -41,7 +43,11 @@
     <p>No results found</p>
   <% end %>
   <% if !@application.pets.empty? %>
-    <%= button_to "Submit", "/applications/#{@application.id}", method: :patch %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.label :reason_for_adoption, "Please explain why you would be a good home" %>
+      <%= form.text_area :reason_for_adoption %><br>
+      <%= form.submit "Submit" %>
+    <% end %>
   <% end %>
 <% end %>
 
