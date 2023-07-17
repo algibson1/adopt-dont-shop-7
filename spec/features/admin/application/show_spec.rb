@@ -96,7 +96,7 @@ RSpec.describe 'Admin Application Show Page' do
     end
   end
 
-  it "does not affect other petapplications when one is rejected" do
+  it "does not affect other pet applications when one is rejected" do
     happy_tails = Shelter.create!(name: "Happy Tails", foster_program: true, city: "San Francisco", rank: 3)
     sparky = happy_tails.pets.create!(name: "Sparky", adoptable: true, age: 2, breed: "Beagle")
     phylis = Application.create!(name: "Phylis", street_address: "1234 main circle", city: "Littleton", state: "CO", zipcode: "80241", reason_for_adoption: "I have a huge yard", status: "Pending")
