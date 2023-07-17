@@ -17,10 +17,9 @@ class ApplicationsController < ApplicationController
       city: params[:city],
       state: params[:state],
       zipcode: params[:zipcode],
-      reason_for_adoption: params[:reason_for_adoption],
+      reason_for_adoption: "N/A",
       status: "In Progress"
     )
-    # sort out strong_params later; would (app_params, status: "In Progress") work?
     
     if application.save
       redirect_to "/applications/#{application.id}"
@@ -28,25 +27,19 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
-
-    # errors is a built in ActiveModel method
-    # generates an object like #<ActiveModel::Errors [#<ActiveModel::Error attribute=name, type=blank, options={}>]>
-    # then calling .full_messages on this object will return an error message in plain English like "Name can't be blank"
   end
-
-  # Multiple ways to raise an error:
-  # flash.alert
-  # flast[:alert]
-  # redirect_to "path here", notice: "error message"
-
-  # error code is saved in application controller (original)
-  # def error_message(errors)
-  #   errors.full_messages.join(', ')
-  # end
 
   def update
     application = Application.find(params[:id])
-    application.update(status: "Pending")
-    redirect_to "/applications/#{application.id}"
+    if params[:reason_for_adoption].empty?
+      redirect_to "/applications/#{application.id}"
+      flash[:alert] = "Please input why you would be a good home"
+    else
+      application.update(
+        status: "Pending",
+        reason_for_adoption: params[:reason_for_adoption]
+      )
+      redirect_to "/applications/#{application.id}"
+    end
   end
 end
