@@ -1,0 +1,14 @@
+<h1>Application For <%= @application.name %></h1>
+
+<%= @application.street_address %><br>
+<%= @application.city %>, 
+<%= @application.state %> 
+<%= @application.zipcode %><br>
+
+<% if @application.status == "Pending" %>
+<h3>Reason <%= @application.name %> would be a good home</h3>
+<%= @application.reason_for_adoption %>
+<% end %>
+
+<h4>Application Status</h4>
+<%= @application.status %>
