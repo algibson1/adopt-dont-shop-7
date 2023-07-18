@@ -88,5 +88,20 @@ RSpec.describe Shelter, type: :model do
         expect(result).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
+
+    describe "#pending_apps" do
+      it "returns shelters with pets having pending applications" do
+        johnny = Application.create!(name: 'Johnny', street_address: '1234 main st.', city: 'Westminster', state: 'CO', zipcode: '80241',  reason_for_adoption: "I love animals", status: "Pending" )
+        phylis = Application.create!(name: "Phylis", street_address: "1234 main circle", city: "Littleton", state: "CO", zipcode: "80241", reason_for_adoption: "I have a huge yard", status: "Pending")
+
+        PetApplication.create!(pet: @pet_1, application: johnny, status: "Pending")
+        PetApplication.create!(pet: @pet_2, application: phylis, status: "Approved")
+
+        result = Shelter.pending_apps
+
+        expect(result).to include(@shelter_1)
+        expect(result).not_to include(@shelter_2)
+      end
+    end
   end
 end
