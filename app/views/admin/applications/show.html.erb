@@ -1,13 +1,4 @@
-<h1>Admin Application Show Page</h1>
-
-<h2>Application Information</h2>
-<p>Name: <%= @application.name %></p>
-<p>Street Address: <%= @application.street_address %></p>
-<p>City: <%= @application.city %></p>
-<p>State: <%= @application.state %></p>
-<p>Zipcode: <%= @application.zipcode %></p>
-<p>Reason for Adoption: <%= @application.reason_for_adoption %></p>
-<p>Application Status: <%= @application.status %></p>
+<%= render partial: 'layouts/application_render' %>
 
 <h2>Pets Applied For</h2>
 <% @application.pets.each do |pet| %>
