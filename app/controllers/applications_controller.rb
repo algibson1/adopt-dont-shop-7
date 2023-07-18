@@ -4,6 +4,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     @results = Pet.search(params[:search])
+    @search_results = params[:search]
   end
 
   def new
@@ -42,4 +43,5 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{application.id}"
     end
   end
+
 end
