@@ -27,14 +27,14 @@
     <%= g.text_field :search, value: params[:search] %>
     <%= g.submit "Search" %>
   <% end %>
-  <% if params[:search] != nil %>
+  <% if @search_results %>
     <h3> Search Results </h3>
     <ul>
       <% @results.each do |result| %>
         <li>
           <p>
             <%= result.name %>
-            <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pet_applications", _ %>
+            <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pet_applications" %>
           </p>
         </li>
       <% end %>
