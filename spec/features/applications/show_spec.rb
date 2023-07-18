@@ -36,7 +36,7 @@ RSpec.describe "Application Show Page" do
       Application.destroy_all
       @shelter = Shelter.create!(name: 'Holy Valley', city: 'Westminster', foster_program: false, rank: 3)
       @pet = @shelter.pets.create!(name: 'Pete', breed: 'Boxer', age: 3, adoptable: true)
-      @applicant_1 = @pet.applications.create!(name: 'Johnny', 
+      @applicant_1 = Application.create!(name: 'Johnny', 
       street_address: '1234 main st.', 
       city: 'Westminster', 
       state: 'CO',
@@ -44,6 +44,7 @@ RSpec.describe "Application Show Page" do
       reason_for_adoption: "N/A",
       status: "In Progress"
       )
+      PetApplication.create!(pet_id: @pet.id, application_id: @applicant_1.id, status: "Pending")
     end
   
     it "displays a section on the show page to 'Add a Pet to this Application'" do
@@ -101,7 +102,6 @@ RSpec.describe "Application Show Page" do
       status: "In Progress"
       )
 
-      PetApplication.create!(application: applicant_1, pet: pet_1)
       visit "/applications/#{applicant_1.id}"
 
       fill_in 'Search', with: "Ha"
@@ -121,8 +121,6 @@ RSpec.describe "Application Show Page" do
       reason_for_adoption: "N/A",
       status: "In Progress"
       )
-
-      PetApplication.create!(application: applicant_1, pet: pet_1)
 
       visit "/applications/#{applicant_1.id}"
 
