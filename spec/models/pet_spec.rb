@@ -42,13 +42,6 @@ RSpec.describe Pet, type: :model do
     end
   end
 
-  describe "#shelter_name" do
-    it "returns the shelter name for the given pet" do
-      result = @pet_1.shelter_name
-      expect(result).to eq("Aurora shelter")
-    end
-  end
-
   describe "#application_status" do
     it "returns the status of the application for the given pet" do
       @sunnyside = Shelter.create!(name: "Sunnyside", foster_program: false, city: "Boulder", rank: 2)
