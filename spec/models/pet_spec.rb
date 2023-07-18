@@ -35,10 +35,17 @@ RSpec.describe Pet, type: :model do
   end
 
   describe "instance methods" do
-    describe ".shelter_name" do
+    describe "shelter_name" do
       it "returns the shelter name for the given pet" do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
+    end
+  end
+
+  describe "#shelter_name" do
+    it "returns the shelter name for the given pet" do
+      result = @pet_1.shelter_name
+      expect(result).to eq("Aurora shelter")
     end
   end
 end
