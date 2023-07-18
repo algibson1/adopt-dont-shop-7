@@ -67,5 +67,12 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
+    describe "#self.order_by_recently_created" do
+      it "returns shlters ordered by most recently created first" do
+       result = Shelter.order_by_recently_created
+       expect(result).to eq([@shelter_3, @shelter_2, @shelter_1])
+      end
+    end
   end
 end
