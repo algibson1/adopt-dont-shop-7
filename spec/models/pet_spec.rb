@@ -48,4 +48,17 @@ RSpec.describe Pet, type: :model do
       expect(result).to eq("Aurora shelter")
     end
   end
+
+  describe "#application_status" do
+    it "returns the status of the application for the given pet" do
+      @sunnyside = Shelter.create!(name: "Sunnyside", foster_program: false, city: "Boulder", rank: 2)
+      @willow = @sunnyside.pets.create!(name: "Willow", adoptable: true, age: 1, breed: "Labrador")
+      @applicant_1 = Application.create!(name: "Phylis", street_address: "1234 main circle", city: "Littleton", state: "CO", zipcode: "80241", reason_for_adoption: "N/A", status: "In Progress")
+      PetApplication.create!(pet: @willow, application: @applicant_1, status: "Pending")
+
+      result = @willow.application_status(@applicant_1)
+
+      expect(result).to eq("Pending")
+    end
+  end
 end
