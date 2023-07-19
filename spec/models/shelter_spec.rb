@@ -67,5 +67,36 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
+    describe "self.reverse_alphabetical" do
+      it "returns shelters ordered by name in reverse alphabetical order" do
+        result = Shelter.reverse_alphabetical
+        expect(result).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#pending_apps" do
+      it "returns shelters with pets having pending applications" do
+        shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+        shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
+
+        pet_1 = shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
+        pet_2 = shelter_2.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+        pet_3 = shelter_2.pets.create(name: "Rex", breed: "German Shepherd", age: 2, adoptable: true)
+
+        johnny = Application.create!(name: 'Johnny', street_address: '1234 main st.', city: 'Westminster', state: 'CO', zipcode: '80241',  reason_for_adoption: "I love animals", status: "Pending" )
+        phylis = Application.create!(name: "Phylis", street_address: "1234 main circle", city: "Littleton", state: "CO", zipcode: "80241", reason_for_adoption: "I have a huge yard", status: "Approved")
+        bob = Application.create!(name: "Bob", street_address: "5678 Elm St", city: "Houston", state: "TX", zipcode: "77001", reason_for_adoption: "Stay at home family", status: "Rejected")
+
+        PetApplication.create!(pet: pet_1, application: johnny, status: "Pending")
+        PetApplication.create!(pet: pet_2, application: phylis, status: "Approved")
+        PetApplication.create!(pet: pet_3, application: bob, status: "Rejected")
+
+        result = Shelter.pending_apps
+
+        expect(result).to include(shelter_1)
+        expect(result).not_to include(shelter_2)
+      end
+    end
   end
 end
