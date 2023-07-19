@@ -155,18 +155,6 @@ RSpec.describe "Application Show Page" do
     end
   end
 
-#     As a visitor
-# When I visit an application's show page
-# And I have added one or more pets to the application
-# Then I see a section to submit my application
-############### And in that section I see an input to enter why I would make a good owner for these pet(s)
-# When I fill in that input
-# And I click a button to submit this application
-# Then I am taken back to the application's show page
-# And I see an indicator that the application is "Pending"
-# And I see all the pets that I want to adopt
-# And I do not see a section to add more pets to this application
-
   describe "application submission" do
     it "shows a submit section after a pet is added" do
       visit "/applications/#{@applicant_1.id}"
@@ -197,12 +185,6 @@ RSpec.describe "Application Show Page" do
       expect(current_path).to eq("/applications/#{@applicant_1.id}")
       expect(page).to have_content("Please input why you would be a good home")
     end
-    # 7. No Pets on an Application
-    
-    # As a visitor
-    # When I visit an application's show page
-    # And I have not added any pets to the application
-    # Then I do not see a section to submit my application
 
     it "has no option to submit without pets" do
       PetApplication.destroy_all

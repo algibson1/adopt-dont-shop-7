@@ -6,13 +6,6 @@ RSpec.describe "Admin view of shelters index" do
     @apple_of_my_eye = Shelter.create!(name: "Apple of My Eye", foster_program: false, city: "Austin", rank: 5)
     @sunnyside = Shelter.create!(name: "Sunnyside", foster_program: false, city: "Boulder", rank: 2)
   end
-# For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
-
-# 10. Admin Shelters Index
-
-# As a visitor
-# When I visit the admin shelter index ('/admin/shelters')
-# Then I see all Shelters in the system listed in reverse alphabetical order by name
 
   it "shows all shelters in reverse alphabetical order by name" do
     visit "/admin/shelters"
@@ -20,15 +13,6 @@ RSpec.describe "Admin view of shelters index" do
     expect("Sunnyside").to appear_before("Happy Tails")
     expect("Happy Tails").to appear_before("Apple of My Eye")
   end
-
-  # For this story, you should fully leverage ActiveRecord methods in your query.
-
-  # 11. Shelters with Pending Applications
-  
-  # As a visitor
-  # When I visit the admin shelter index ('/admin/shelters')
-  # Then I see a section for "Shelters with Pending Applications"
-  # And in this section I see the name of every shelter that has a pending application
 
   it "show a section with shelters with Pending Applications" do
     sparky = @happy_tails.pets.create!(name: "Sparky", adoptable: true, age: 2, breed: "Beagle")
