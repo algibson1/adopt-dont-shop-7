@@ -116,7 +116,6 @@ RSpec.describe "Application Creation" do
 
     expect(current_path).to eq("/applications/new")
     expect(page).to have_content("Error: State can't be blank")
-    #remake the form with a dropdown?
   end
 
   it "should raise error if user doesn't fill out zipcode" do
@@ -143,7 +142,4 @@ RSpec.describe "Application Creation" do
     expect(current_path).to eq("/applications/new")
     expect(page).to have_content("Error: Street address can't be blank, City can't be blank")
   end
-
-  #edge case- check that zip code is a 5-digit number
-  # validate that street address contains a number?
 end
