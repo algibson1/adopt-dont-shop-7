@@ -21,16 +21,6 @@ RSpec.describe "Admin view of shelters index" do
     expect("Happy Tails").to appear_before("Apple of My Eye")
   end
 
-  # Routes in the admin/shelters index for updating or deleting a shelter
-  # will route back to the main shelters page, not admin/shelters
-  # Technically the user story does not say we need anything other than names for the admin
-  # so we could delete all the links and not worry about it
-  # But realistically the admin should be able to do everthing a visitor can do + more
-  # ....so we COULD create routes for admin/(every other route)
-  # which would completely double the length of our route file
-  # so not really in our best interest at the moment, for the purposes of this project
-  # but is something to consider
-
   # For this story, you should fully leverage ActiveRecord methods in your query.
 
   # 11. Shelters with Pending Applications
@@ -51,9 +41,9 @@ RSpec.describe "Admin view of shelters index" do
     expect(page).to have_content("Shelters with Pending Applications")
 
     within("#Pending_Applications") do
-       expect(page).to have_content("Happy Tails")
-       expect(page).to have_content("Sunnyside")
-       expect(page).to_not have_content("Apple of My Eye")
+      expect(page).to have_content("Happy Tails")
+      expect(page).to have_content("Sunnyside")
+      expect(page).to_not have_content("Apple of My Eye")
     end
   end
 
