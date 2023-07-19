@@ -1,18 +1,13 @@
 require "rails_helper"
 
 RSpec.describe "Application Creation" do
-  
-# As a visitor
-# When I visit the pet index page
-# Then I see a link to "Start an Application"
+
   it "is linked to from the pet index page" do
     visit "/pets"
 
     expect(page).to have_link("Start an Application", href: "/applications/new")
   end
 
-# When I click this link
-# Then I am taken to the new application page where I see a form
   it "has a form to create a new application" do
     visit "/pets"
     click_link("Start an Application")
@@ -27,17 +22,6 @@ RSpec.describe "Application Creation" do
     expect(page).to have_button("Submit")
   end
 
-# When I fill in this form with my:
-#   - Name
-#   - Street Address
-#   - City
-#   - State
-#   - Zip Code
-######   - Description of why I would make a good home MOVED TO BE PART OF SUBMISSION STEP ###
-# And I click submit
-# Then I am taken to the new application's show page
-# And I see my Name, address information, and description of why I would make a good home
-# And I see an indicator that this application is "In Progress"
   it "can generate a new application and redirect to show page" do
     visit "/applications/new"
 
@@ -58,13 +42,6 @@ RSpec.describe "Application Creation" do
     expect(page).to have_content("35467")
     expect(page).to have_content("In Progress")
   end
-
-  # As a visitor
-  # When I visit the new application page
-  # And I fail to fill in any of the form fields
-  # And I click submit
-  # Then I am taken back to the new applications page
-  # And I see a message that I must fill in those fields.
 
   it "should raise error if user doesn't fill out name" do
     visit "/applications/new"
@@ -143,7 +120,4 @@ RSpec.describe "Application Creation" do
     expect(current_path).to eq("/applications/new")
     expect(page).to have_content("Error: Street address can't be blank, City can't be blank")
   end
-
-  #edge case- check that zip code is a 5-digit number
-  # validate that street address contains a number?
 end
