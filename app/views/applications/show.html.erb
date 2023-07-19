@@ -1,18 +1,4 @@
-<h1>Application For <%= @application.name %></h1>
-
-<%= @application.street_address %><br>
-<%= @application.city %>, 
-<%= @application.state %> 
-<%= @application.zipcode %><br>
-
-<% if @application.status == "Pending" %>
-<h3>Reason <%= @application.name %> would be a good home</h3>
-<%= @application.reason_for_adoption %>
-<% end %>
-
-<h4>Application Status</h4>
-<%= @application.status %>
-
+<%= render partial: 'layouts/application_render' %>
 
 <h4>Pets Applied For</h4>
 <% @pets.each do |pet| %>
@@ -27,7 +13,7 @@
     <%= g.text_field :search, value: params[:search] %>
     <%= g.submit "Search" %>
   <% end %>
-  <% if params[:search] != nil %>
+  <% if @search_results %>
     <h3> Search Results </h3>
     <ul>
       <% @results.each do |result| %>
