@@ -3,16 +3,16 @@
 <h4>Pets Applied For</h4>
 <% @application.pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <p>Approval Status: <%= pet.application_status(@application) %></p>
+  <p>Approval Status: <%= pet.approval_status_for(@application) %></p>
 <% end %>
 
 <% if @application.status == "In Progress" %>
   <h3> Add a Pet to this Application </h3>
   
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |g| %>
-    <%= g.label :search %>
-    <%= g.text_field :search %>
-    <%= g.submit "Search" %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.label :search %>
+    <%= form.text_field :search %>
+    <%= form.submit "Search" %>
   <% end %>
 
   <% if @results %>
@@ -22,7 +22,7 @@
         <li>
           <p>
             <%= result.name %>
-            <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pet_applications", params: {pet_id: result.id} %>
+            <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets", params: {pet_id: result.id} %>
           </p>
         </li>
       <% end %>
@@ -34,7 +34,8 @@
   <% if @application.has_pets? %>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
       <%= form.label :reason_for_adoption, "Please explain why you would be a good home" %>
-      <%= form.text_area :reason_for_adoption %><br>
+      <%= form.text_area :reason_for_adoption %>
+      <%= form.hidden_field :status, value: "Pending" %><br>
       <%= form.submit "Submit" %>
     <% end %>
   <% end %>
