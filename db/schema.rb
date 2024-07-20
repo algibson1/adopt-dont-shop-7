@@ -20,8 +20,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_14_020823) do
     t.string "city"
     t.string "state"
     t.string "zipcode"
-    t.string "reason_for_adoption"
-    t.string "status"
+    t.string "reason_for_adoption", default: "N/A"
+    t.string "status", default: "In Progress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

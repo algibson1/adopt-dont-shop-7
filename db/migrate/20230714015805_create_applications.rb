@@ -6,8 +6,8 @@ class CreateApplications < ActiveRecord::Migration[7.0]
       t.string :city
       t.string :state
       t.string :zipcode
-      t.string :reason_for_adoption
-      t.string :status
+      t.string :reason_for_adoption, default: "N/A"
+      t.string :status, default: "In Progress"
 
       t.timestamps
     end
