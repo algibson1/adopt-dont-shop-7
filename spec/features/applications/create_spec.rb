@@ -43,80 +43,82 @@ RSpec.describe "Application Creation" do
     expect(page).to have_content("In Progress")
   end
 
-  it "should raise error if user doesn't fill out name" do
-    visit "/applications/new"
+  describe "when given invalid input" do
+    it "should raise error if user doesn't fill out name" do
+      visit "/applications/new"
 
-    fill_in(:street_address, with: "253 Doggie Lane")
-    fill_in(:city, with: "Kitty City")
-    fill_in(:state, with: "WA")
-    fill_in(:zipcode, with: "35467")
-    click_button("Submit")
+      fill_in(:street_address, with: "253 Doggie Lane")
+      fill_in(:city, with: "Kitty City")
+      fill_in(:state, with: "WA")
+      fill_in(:zipcode, with: "35467")
+      click_button("Submit")
 
-    expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: Name can't be blank")
-  end
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error: Name can't be blank")
+    end
 
-  it "should raise error if user doesn't fill out address" do
-    visit "/applications/new"
+    it "should raise error if user doesn't fill out address" do
+      visit "/applications/new"
 
-    fill_in(:name, with: "Jennifer")
-    fill_in(:city, with: "Kitty City")
-    fill_in(:state, with: "WA")
-    fill_in(:zipcode, with: "35467")
-    click_button("Submit")
+      fill_in(:name, with: "Jennifer")
+      fill_in(:city, with: "Kitty City")
+      fill_in(:state, with: "WA")
+      fill_in(:zipcode, with: "35467")
+      click_button("Submit")
 
-    expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: Street address can't be blank")
-  end
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error: Street address can't be blank")
+    end
 
-  it "should raise error if user doesn't fill out city" do
-    visit "/applications/new"
+    it "should raise error if user doesn't fill out city" do
+      visit "/applications/new"
 
-    fill_in(:name, with: "Jennifer")
-    fill_in(:street_address, with: "253 Doggie Lane")
-    fill_in(:state, with: "WA")
-    fill_in(:zipcode, with: "35467")
-    click_button("Submit")
+      fill_in(:name, with: "Jennifer")
+      fill_in(:street_address, with: "253 Doggie Lane")
+      fill_in(:state, with: "WA")
+      fill_in(:zipcode, with: "35467")
+      click_button("Submit")
 
-    expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: City can't be blank")
-  end
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error: City can't be blank")
+    end
 
-  it "should raise error if user doesn't fill out state" do
-    visit "/applications/new"
+    it "should raise error if user doesn't fill out state" do
+      visit "/applications/new"
 
-    fill_in(:name, with: "Jennifer")
-    fill_in(:street_address, with: "253 Doggie Lane")
-    fill_in(:city, with: "Kitty City")
-    fill_in(:zipcode, with: "35467")
-    click_button("Submit")
+      fill_in(:name, with: "Jennifer")
+      fill_in(:street_address, with: "253 Doggie Lane")
+      fill_in(:city, with: "Kitty City")
+      fill_in(:zipcode, with: "35467")
+      click_button("Submit")
 
-    expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: State can't be blank")
-  end
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error: State can't be blank")
+    end
 
-  it "should raise error if user doesn't fill out zipcode" do
-    visit "/applications/new"
+    it "should raise error if user doesn't fill out zipcode" do
+      visit "/applications/new"
 
-    fill_in(:name, with: "Jennifer")
-    fill_in(:street_address, with: "253 Doggie Lane")
-    fill_in(:city, with: "Kitty City")
-    fill_in(:state, with: "WA")
-    click_button("Submit")
+      fill_in(:name, with: "Jennifer")
+      fill_in(:street_address, with: "253 Doggie Lane")
+      fill_in(:city, with: "Kitty City")
+      fill_in(:state, with: "WA")
+      click_button("Submit")
 
-    expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: Zipcode can't be blank")
-  end
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error: Zipcode can't be blank")
+    end
 
-  it "may have multiple errors" do
-    visit "/applications/new"
+    it "may have multiple errors" do
+      visit "/applications/new"
 
-    fill_in(:name, with: "Jennifer")
-    fill_in(:state, with: "WA")
-    fill_in(:zipcode, with: "35467")
-    click_button("Submit")
+      fill_in(:name, with: "Jennifer")
+      fill_in(:state, with: "WA")
+      fill_in(:zipcode, with: "35467")
+      click_button("Submit")
 
-    expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Error: Street address can't be blank, City can't be blank")
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error: Street address can't be blank, City can't be blank")
+    end
   end
 end
