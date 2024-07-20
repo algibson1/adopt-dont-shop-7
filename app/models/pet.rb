@@ -1,7 +1,11 @@
 class Pet < ApplicationRecord
-  validates :name, presence: true
-  validates :age, presence: true, numericality: true
+  validates_presence_of :name,
+                        :age
+
+  validates_numericality_of :age
+
   belongs_to :shelter
+
   has_many :pet_applications
   has_many :applications, through: :pet_applications
 
@@ -13,8 +17,7 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def application_status(application)
-    petapp = PetApplication.where("pet_id = #{self.id}").where("application_id = #{application.id}").first
-    petapp.status
+  def approval_status_for(application)
+    PetApplication.find_by(pet_id: self.id, application_id: application.id).status
   end
 end
