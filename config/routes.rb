@@ -2,9 +2,15 @@ Rails.application.routes.draw do
   get "/", to: "application#welcome"
 
   get "/admin/shelters", to: "admin/shelters#index"
-  patch '/admin/applications/:id', to: 'pet_applications#update'
-  get '/admin/applications/:id', to: 'admin/applications#show'
- 
+  get "/admin/applications/:id", to: "admin/applications#show"
+
+  get "/applications/new", to: "applications#new"
+  get "/applications/:id", to: "applications#show"
+  patch "/applications/:id", to: "applications#update"
+  post "/applications", to: "applications#create"
+
+  post "/applications/:id/pets", to: "pet_applications#create"
+  patch "/applications/:app_id/pets/:pet_id", to: "pet_applications#update"
 
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
@@ -41,11 +47,4 @@ Rails.application.routes.draw do
   get "/veterinary_offices/:veterinary_office_id/veterinarians", to: "veterinary_offices#veterinarians"
   get "/veterinary_offices/:veterinary_office_id/veterinarians/new", to: "veterinarians#new"
   post "/veterinary_offices/:veterinary_office_id/veterinarians", to: "veterinarians#create"
-
-  get "/applications/new", to: "applications#new"
-  get "/applications/:id", to: "applications#show"
-  patch "/applications/:id", to: "applications#update"
-  post "/applications", to: "applications#create"
-
-  post "/applications/:id/pet_applications", to: "pet_applications#create"
 end
