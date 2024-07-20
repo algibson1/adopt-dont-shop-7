@@ -2,9 +2,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets
-    @results = Pet.search(params[:search])
-    @search_results = params[:search]
+    @results = Pet.search(params[:search]) if params[:search]
   end
 
   def new
@@ -12,16 +10,7 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.new(
-      name: params[:name],
-      street_address: params[:street_address],
-      city: params[:city],
-      state: params[:state],
-      zipcode: params[:zipcode],
-      reason_for_adoption: "N/A",
-      status: "In Progress"
-    )
-    
+    application = Application.new(application_params)
     if application.save
       redirect_to "/applications/#{application.id}"
     else
@@ -44,4 +33,8 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  private
+  def application_params
+    params.permit(:name, :street_address, :city, :state, :zipcode)
+  end
 end
